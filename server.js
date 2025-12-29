@@ -3,7 +3,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
 
-// --- IMPORT DATA SOAL DARI FILE TERPISAH ---
+// --- IMPORT DATA SOAL DARI FOLDER SEBELAH ---
 const questionPool = require('./public/data/exam.js'); 
 
 const app = express();

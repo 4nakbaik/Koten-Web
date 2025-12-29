@@ -5,8 +5,8 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    device_id VARCHAR(255) UNIQUE NOT NULL, -- ID Unik dari Browser/HP
-    username VARCHAR(50) DEFAULT 'Kang Mus', -- Nama User (Disimpan di LocalStorage, ini cadangan)
+    device_id VARCHAR(255) UNIQUE NOT NULL, 
+    username VARCHAR(50) DEFAULT 'Kang Mus', 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -17,15 +17,15 @@ CREATE TABLE vocabularies (
     romaji VARCHAR(100) NOT NULL,
     meaning TEXT NOT NULL,
     example_sentence TEXT,
-    difficulty_level INTEGER DEFAULT 1 -- 1: N5, 2: N4
+    difficulty_level INTEGER DEFAULT 1 
 );
 
 CREATE TABLE review_logs (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE, -- Hapus log jika user dihapus
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE, 
     vocab_id INTEGER REFERENCES vocabularies(id) ON DELETE CASCADE,
     reviewed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    result INTEGER CHECK (result IN (0, 1, 2)) -- 0: Lupa, 1: Ragu, 2: Ingat
+    result INTEGER CHECK (result IN (0, 1, 2)) 
 );
 
 

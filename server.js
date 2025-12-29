@@ -21,18 +21,17 @@ const pool = new Pool({
     port: 5432,
 });
 
-// --- MIDDLEWARE: DETEKSI PERANGKAT (USER ISOLATION) ---
+// --- MIDDLEWARE ---
 async function resolveUser(req, res, next) {
-    const deviceId = req.headers['x-device-id']; // Diambil dari header request frontend
+    const deviceId = req.headers['x-device-id'];
 
     if (!deviceId) {
-        // Jika tidak ada ID, gunakan user default ID 1 (Fallback)
+        // kalau g ada ID, bakal pake user default ID 1 
         req.userId = 1; 
         return next();
     }
 
     try {
-        // 1. Cek apakah user dengan device_id ini sudah ada?
         let userRes = await pool.query('SELECT id FROM users WHERE device_id = $1', [deviceId]);
 
         if (userRes.rows.length > 0) {
@@ -52,7 +51,7 @@ async function resolveUser(req, res, next) {
     }
 }
 
-// --- LOGIC SQL (CTE) ---
+// --- LOGIC SQL ---
 const VOCAB_STATE_SQL = `
     WITH UserLogs AS (
         SELECT vocab_id, reviewed_at, result,
@@ -126,7 +125,7 @@ app.get('/api/vocab', resolveUser, async (req, res) => {
     }
 });
 
-// 2. ENDPOINT SUBMIT REVIEW (USER SPECIFIC)
+// ENDPOINT SUBMIT REVIEW 
 app.post('/api/review', resolveUser, async (req, res) => {
     const userId = req.userId;
     const { vocabId, result, source = 'flashcard' } = req.body; 
@@ -164,7 +163,7 @@ app.post('/api/review', resolveUser, async (req, res) => {
     }
 });
 
-// 3. STATS API (USER SPECIFIC)
+// STATS API 
 app.get('/api/stats', resolveUser, async (req, res) => {
     const userId = req.userId;
     try {
@@ -192,7 +191,7 @@ app.get('/api/stats', resolveUser, async (req, res) => {
     }
 });
 
-// 4. EXAM DATA (LOAD FROM FILE)
+// EXAM DATA 
 app.get('/api/exam', async (req, res) => {
     try {
         // Ambil 10 soal N5 dan 10 soal N4 secara acak dari file data
@@ -216,7 +215,7 @@ app.get('/api/exam', async (req, res) => {
     }
 });
 
-// 5. UPDATE PROFILE 
+// UPDATE PROFILE 
 app.post('/api/user/profile', resolveUser, async (req, res) => {
     const userId = req.userId;
     const { username } = req.body;

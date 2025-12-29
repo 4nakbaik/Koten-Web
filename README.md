@@ -1,13 +1,44 @@
-## Project Structure
+##instruksi
 
-The project follows a monolithic architecture where the Node.js server handles both API requests and serves static frontend files.
+### 1. Clone Repository
 
-```text
+```bash
+git clone origin https://github.com/4nakbaik/Koten-Web.git  
+cd NAMA_REPO
+
+### 2. Konfigurasi Environment (.env)
+Buat file baru bernama .env 
+
+# Konfigurasi Database misal. PostgreSQL
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=rahasia
+POSTGRES_DB=nama_db
+
+# Konfigurasi Aplikasi
+PORT=3000
+DB_HOST=db
+DB_PORT=5432
+
+### 3. Buka Docker
+run:
+
+```bash
+docker-compose up --build
+
+### Struktur Folder
+
 .
-├── database/            # Database
-├── public/              # assets 
-├── .env                 # config
-├── docker-compose.yml   # Docker config
-├── Dockerfile           
-├── package.json        
-└── server.js            # Main web entry point
+├── database/               
+│   └── init.sql            
+├── public/                 
+│   ├── audio/             
+│   ├── data/              
+│   ├── image/              
+│   ├── index.html          
+│   ├── script.js          
+│   └── style.css           
+├── server.js               
+├── docker-compose.yml     
+├── Dockerfile              
+├── package.json            
+└── .env                    

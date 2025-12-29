@@ -23,6 +23,7 @@
     ```
 
 ## Struktur Folder 
+```
 .
 ├── database/
 │   └── init.sql
@@ -38,5 +39,6 @@
 ├── Dockerfile
 ├── package.json
 └── .env
+```
 
 

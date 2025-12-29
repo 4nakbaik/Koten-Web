@@ -1,44 +1,42 @@
-##instruksi
+## Instruksi
 
-### 1. Clone Repository
+1.  **Clone Repository ini:**
+    ```bash
+    git clone https://github.com/4nakbaik/Koten-Web.git 
+    cd Koten-web
+    ```
 
-```bash
-git clone origin https://github.com/4nakbaik/Koten-Web.git  
-cd NAMA_REPO
+2.  **Buat file `.env` di folder utama:**
+    set env:
+    ```env
+    POSTGRES_USER=ujang
+    POSTGRES_PASSWORD=pulangkesolo
+    POSTGRES_DB=nama_db
+    DB_PORT=5432
+    SERVER_PORT=3000
+    ```
 
-### 2. Konfigurasi Environment (.env)
-Buat file baru bernama .env 
+3.  **Terakhir:**
+    Buka terminal di folder proyek, trus ketik:
+    ```bash
+    docker-compose up --build
+    ```
 
-# Konfigurasi Database misal. PostgreSQL
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=rahasia
-POSTGRES_DB=nama_db
-
-# Konfigurasi Aplikasi
-PORT=3000
-DB_HOST=db
-DB_PORT=5432
-
-### 3. Buka Docker
-run:
-
-```bash
-docker-compose up --build
-
-### Struktur Folder
-
+## Struktur Folder 
 .
-├── database/               
-│   └── init.sql            
-├── public/                 
-│   ├── audio/             
-│   ├── data/              
-│   ├── image/              
-│   ├── index.html          
-│   ├── script.js          
-│   └── style.css           
-├── server.js               
-├── docker-compose.yml     
-├── Dockerfile              
-├── package.json            
-└── .env                    
+├── database/
+│   └── init.sql
+├── public/
+│   ├── audio/
+│   ├── data/
+│   ├── image/
+│   ├── index.html
+│   ├── script.js
+│   └── style.css
+├── server.js
+├── docker-compose.yml
+├── Dockerfile
+├── package.json
+└── .env
+
+

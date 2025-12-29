@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Koten</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Noto+Sans+JP:wght@400;700&family=Fredoka+One&family=DotGothic16&family=Press+Start+2P&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="app-container">
+        
+        <section id="view-home" class="view active-view">
+            <div class="header-simple">
+                <h1 class="title-decor">FLASHCARDS</h1>
+                <p class="instruction-text">Tap the card to flip</p>
+            </div>
+            
+            <div class="card-scene">
+                <div class="card" id="flashcard" onclick="flipCard()">
+                    <div class="card-face card-front">
+                        <span class="pin"></span>
+                        <div class="content">
+                            <h1 id="kanji">Loading...</h1>
+                            <p class="kana-hint" id="kana">...</p>
+                        </div>
+                        <div class="corner-mark" id="level-badge">N5</div>
+                    </div>
+                    <div class="card-face card-back">
+                        <div class="content">
+                            <h2 id="romaji">...</h2>
+                            <hr>
+                            <p class="meaning" id="meaning">...</p>
+                            <p class="sentence" id="example">...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons-grid">
+                <button class="btn-action btn-bad" onclick="submitReview(0, event)">
+                    <i class="fas fa-times"></i> Lupa
+                </button>
+                <button class="btn-action btn-mid" onclick="submitReview(1, event)">
+                    <i class="fas fa-question"></i> Ragu
+                </button>
+                <button class="btn-action btn-good" onclick="submitReview(2, event)">
+                    <i class="fas fa-check"></i> Ingat
+                </button>
+            </div>
+        </section>
+
+        <section id="view-quiz" class="view retro-theme">
+            
+            <div id="retro-bg-container"></div>
+
+            <div id="quiz-lobby" class="retro-layer">
+                <div class="retro-box title-box">
+                    <h1>NIHONGO<br>QUEST</h1>
+                    <p>Udah Jago? Tantang Dirimu Disini!</p>
+                </div>
+                <div class="pixel-art-decor">
+                    <img src="https://media.tenor.com/fSsxHOgaCqAAAAAi/pixel-art-city.gif" alt="Pixel City" class="retro-img">
+                </div>
+                <button class="retro-btn blink-anim" onclick="initGame()">INSERT COIN</button>
+                <p class="retro-note">*Tips: Jangan lupa berdoa...</p>
+            </div>
+
+            <div id="quiz-gameplay" class="retro-layer" style="display: none;">
+                <div class="retro-header">
+                    <div class="retro-stat">
+                        <small>SCORE</small>
+                        <span id="quiz-score">0</span>
+                    </div>
+                    <div class="retro-stat">
+                        <small>LIFE</small>
+                        <span id="quiz-lives">❤❤❤</span>
+                    </div>
+                </div>
+
+                <div class="retro-timer-border">
+                    <div id="timer-bar" class="retro-timer-fill"></div>
+                </div>
+
+                <div id="combo-display" class="retro-combo"></div>
+
+                <div class="retro-card">
+                    <h1 id="q-question">?</h1>
+                    <p id="q-hint">...</p>
+                </div>
+
+                <div class="retro-grid" id="options-container">
+                    <button class="retro-opt" id="btn-0" onclick="checkAnswer(this)">A</button>
+                    <button class="retro-opt" id="btn-1" onclick="checkAnswer(this)">B</button>
+                    <button class="retro-opt" id="btn-2" onclick="checkAnswer(this)">C</button>
+                    <button class="retro-opt" id="btn-3" onclick="checkAnswer(this)">D</button>
+                </div>
+
+                <div id="quiz-feedback" class="retro-feedback"></div>
+                <button id="btn-restart" class="retro-btn" style="display:none;" onclick="backToLobby()">EXIT GAME</button>
+            </div>
+        </section>
+
+        <section id="view-chart" class="view">
+            <div class="header chart-header-fixed">
+                <h2>Dictionary</h2>
+                <div class="chart-toggles">
+                    <button id="btn-hira" class="toggle-btn active" onclick="switchChart('hira')">Hiragana</button>
+                    <button id="btn-kata" class="toggle-btn" onclick="switchChart('kata')">Katakana</button>
+                    <button id="btn-kanji" class="toggle-btn" onclick="switchChart('kanji')">Kanji</button>
+                </div>
+            </div>
+            
+            <div class="chart-scroll-area hide-scroll">
+                <div class="chart-grid" id="kana-grid"></div>
+            </div>
+        </section>
+
+        <section id="view-progress" class="view">
+            <div class="profile-section">
+                <div class="avatar-wrapper" onclick="document.getElementById('avatar-input').click()">
+                    <img id="profile-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User">
+                    <div class="edit-overlay"><i class="fas fa-camera"></i></div>
+                </div>
+                <input type="file" id="avatar-input" accept="image/*" style="display: none;" onchange="uploadAvatar(this)">
+                
+                <div class="name-wrapper">
+                    <input type="text" id="username-input" value="Player 1" onblur="saveProfile()" spellcheck="false">
+                    <i class="fas fa-pen edit-icon" onclick="document.getElementById('username-input').focus()"></i>
+                </div>
+                <div class="rank-badge" id="profile-rank">Novice</div>
+            </div>
+            
+            <div class="mastery-card">
+                <div class="mastery-header">
+                    <span>N5 Mastery</span>
+                    <span id="n5-progress-text">0%</span>
+                </div>
+                <div class="hud-bar-bg">
+                    <div id="hud-mastery-bar" class="hud-bar-fill mastery-color" style="width: 0%"></div>
+                    <div class="limit-marker" style="left: 80%"></div> 
+                </div>
+                
+                <div id="n4-lock-status" class="lock-status">🔒 N4 Locked</div>
+                
+                <button class="btn-exam" onclick="startExamMode()">
+                    <i class="fas fa-file-signature"></i> START EXAM
+                </button>
+            </div>
+            
+            <div class="stats-dashboard">
+                <div class="stat-card card-purple">
+                    <div class="stat-icon"><i class="fas fa-crown"></i></div>
+                    <div class="stat-data">
+                        <span class="stat-label">Level</span>
+                        <span class="stat-num" id="stat-level">1</span>
+                    </div>
+                </div>
+                <div class="stat-card card-blue">
+                    <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="stat-data">
+                        <span class="stat-label">Total XP</span>
+                        <span class="stat-num" id="stat-xp">0</span>
+                    </div>
+                </div>
+                <div class="stat-card card-green">
+                    <div class="stat-icon"><i class="fas fa-book-open"></i></div>
+                    <div class="stat-data">
+                        <span class="stat-label">Learned</span>
+                        <span class="stat-num" id="stat-seen">0</span>
+                    </div>
+                </div>
+                <div class="stat-card card-orange">
+                    <div class="stat-icon"><i class="fas fa-bullseye"></i></div>
+                    <div class="stat-data">
+                        <span class="stat-label">Correct</span>
+                        <span class="stat-num" id="stat-quiz">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-history">
+                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                <ul id="history-list"></ul>
+            </div>
+        </section>
+
+        <section id="view-exam" class="view exam-theme">
+            <div class="exam-header">
+                <div class="exam-timer-box">
+                    <i class="fas fa-clock"></i> <span id="exam-timer-text">08:00</span>
+                </div>
+                
+                <div class="exam-meta">
+                    <span id="exam-counter">1/20</span>
+                </div>
+            </div>
+
+            <div class="exam-progress-container">
+                <div id="exam-progress-bar" class="exam-progress-fill" style="width: 0%;"></div>
+            </div>
+
+            <div class="exam-card">
+                <span class="exam-badge">FINAL EXAM</span>
+                <h1 id="exam-question">Soal...</h1>
+            </div>
+
+            <div class="exam-options">
+                <button class="exam-opt opt-red" onclick="recordAnswer(this, 0)">Option A</button>
+                <button class="exam-opt opt-blue" onclick="recordAnswer(this, 1)">Option B</button>
+                <button class="exam-opt opt-green" onclick="recordAnswer(this, 2)">Option C</button>
+                <button class="exam-opt opt-yellow" onclick="recordAnswer(this, 3)">Option D</button>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="navbar" id="main-nav">
+        <button class="nav-item active" onclick="switchView('home')">
+            <i class="fas fa-layer-group"></i> <span>Cards</span>
+        </button>
+        <button class="nav-item" onclick="switchView('quiz')">
+            <i class="fas fa-gamepad"></i> <span>Arcade</span>
+        </button>
+        <button class="nav-item" onclick="switchView('chart')">
+            <i class="fas fa-th"></i> <span>Chart</span>
+        </button>
+        <button class="nav-item" onclick="switchView('progress')">
+            <i class="fas fa-user-graduate"></i> <span>Stats</span>
+        </button>
+    </nav>
+
+    <div id="exam-result-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h2 id="exam-title">Exam Finished!</h2>
+            
+            <div class="result-stats">
+                <div class="res-item correct"><span id="res-correct">0</span> Benar</div>
+                <div class="res-item wrong"><span id="res-wrong">0</span> Salah</div>
+            </div>
+            
+            <div class="result-score" id="exam-final-score">0</div>
+            <p id="exam-msg">Keep going!</p>
+            <button class="btn-main" onclick="closeExam()">Close</button>
+        </div>
+    </div>
+    
+    <script src="data/kanji.js"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>

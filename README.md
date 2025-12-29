@@ -1,63 +1,44 @@
-# Koten 📚✨
+# Koten
 
-Selamat datang di **Koten**! Aplikasi web kece buat kamu yang lagi berjuang naklukin kosakata bahasa Jepang. Gak cuma sekadar flashcard biasa, di sini kamu bisa belajar sambil main game retro, ujian kayak beneran, dan pantau progress belajar kamu biar makin semangat jadi wibu elit! 🎌
+Koten adalah aplikasi web full-stack yang dirancang untuk membantu pembelajaran kosakata bahasa Jepang. Aplikasi ini menggabungkan metode Spaced Repetition System (SRS), modul ujian interaktif, dan mode permainan arcade untuk meningkatkan retensi kosakata pengguna secara efektif.
 
-## Fitur Unggulan 🔥
+## Fitur Utama
 
-* **Flashcard Pintar (SRS):** Kartu hafalan yang bakal sering munculin kata-kata yang susah kamu inget. Jadi belajarnya lebih efisien, gak cuma ngulang yang udah hafal.
-* **Arcade Mode:** Belajar rasa main game! Jawab pertanyaan sambil dikejar waktu dengan nuansa retro 8-bit yang asik. 🎮
-* **Exam Mode:** Siap ujian? Tes kemampuan kamu di sini. Ada timernya lho, jadi berasa kayak lagi ujian JLPT beneran. 📝
-* **Multi-Device Sync:** Login gak pake ribet! Progress kamu kesimpen otomatis berdasarkan device. Bisa lanjut belajar di HP atau Laptop tanpa takut data ilang. 📱💻
-* **Stats & Chart:** Pantau level kamu, total XP, dan seberapa banyak kata yang udah kamu kuasai lewat grafik yang enak dilihat. 📈
+* **Sistem Flashcard (SRS):** Algoritma cerdas yang memprioritaskan kata-kata yang sulit diingat oleh pengguna untuk memaksimalkan efisiensi belajar.
+* **Mode Ujian (Exam):** Simulasi tes dengan batasan waktu untuk mengukur kemampuan mengingat kosakata dalam kondisi tertekan.
+* **Mode Arcade:** Modul pembelajaran gamifikasi dengan antarmuka retro untuk meningkatkan keterlibatan pengguna.
+* **Pelacakan Statistik:** Dasbor analitik yang menampilkan tingkat penguasaan materi (Mastery Level), total XP, dan riwayat belajar.
+* **Sinkronisasi Multi-Perangkat:** Penyimpanan progres belajar berbasis identifikasi perangkat (Device ID), memungkinkan akses berkelanjutan tanpa login tradisional.
 
-## Teknologi di Balik Layar 🛠️
+## Arsitektur Teknologi
 
-Aplikasi ini dibangun pake teknologi kekinian biar performanya ngebut dan stabil:
+Aplikasi ini dibangun menggunakan arsitektur modern berbasis microservices yang dikemas dalam Docker container.
 
-* **Frontend:** React (Vite) + Tailwind CSS (Biar tampilannya *sleek* & *responsive*)
-* **Backend:** Node.js + Express (Otaknya aplikasi ini)
-* **Database:** PostgreSQL (Buat nyimpen semua data hafalan kamu dengan aman)
-* **Deploy:** Docker (Biar gampang dijalankan di mana aja tanpa drama "kok di laptop gue jalan, di sini enggak?") 🐳
+### Frontend
+* **React (Vite):** Framework UI untuk performa tinggi dan pengalaman pengguna yang responsif.
+* **Tailwind CSS:** Framework styling untuk desain antarmuka yang konsisten.
+* **Framer Motion:** Library untuk transisi antarmuka yang halus.
 
-## Cara Menjalankan (Lokal) 🚀
+### Backend
+* **Node.js & Express:** Server API yang menangani logika bisnis dan komunikasi data.
+* **PostgreSQL:** Basis data relasional untuk menyimpan data pengguna, kosakata, dan log aktivitas.
 
-Mau coba jalanin di komputer sendiri? Gampang banget! Pastikan kamu udah install **Docker** dan **Node.js** ya.
+### Infrastruktur
+* **Docker & Docker Compose:** Orkestrasi kontainer untuk memastikan konsistensi lingkungan pengembangan dan produksi.
 
-1.  **Clone Repository ini:**
-    ```bash
-    git clone [https://github.com/USERNAME_KAMU/NAMA_REPO_KAMU.git](https://github.com/USERNAME_KAMU/NAMA_REPO_KAMU.git)
-    cd NAMA_REPO_KAMU
-    ```
+## Prasyarat Instalasi
 
-2.  **Buat file `.env` di folder utama:**
-    Isinya kayak gini (bisa disesuaikan):
-    ```env
-    POSTGRES_USER=postgres
-    POSTGRES_PASSWORD=passwordrahasia
-    POSTGRES_DB=nihongo_db
-    DB_PORT=5432
-    SERVER_PORT=3000
-    ```
+Sebelum menjalankan aplikasi, pastikan perangkat lunak berikut telah terinstal:
+1. Docker Desktop
+2. Git
 
-3.  **Nyalakan Mesin:**
-    Buka terminal di folder proyek, trus ketik:
-    ```bash
-    docker-compose up --build
-    ```
+## Panduan Instalasi dan Menjalankan
 
-4.  **Buka di Browser:**
-    * Frontend (Tampilan): Buka `http://localhost:5173`
-    * Backend (API): Jalan di `http://localhost:3000`
+Ikuti langkah-langkah berikut untuk menjalankan proyek di lingkungan lokal Anda.
 
-## Struktur Folder 📂
+### 1. Clone Repository
+Unduh kode sumber proyek ke komputer lokal Anda.
 
-Biar gak bingung, ini peta singkat kodingannya:
-
-* **`client/`**: Isinya kodingan React buat tampilan web (Frontend).
-* **`server/`**: Isinya kodingan Node.js buat ngurusin logika dan database (Backend).
-* **`database/`**: Isinya script SQL buat bikin tabel database otomatis pas pertama kali jalan.
-* **`docker-compose.yml`**: Resep rahasia buat nge-link Frontend, Backend, dan Database jadi satu kesatuan yang harmonis.
-
-## Lisensi 📄
-
-Proyek ini open source kok! Bebas dipake buat belajar atau dikembangin lagi. *Happy coding & Ganbatte!* 💪
+```bash
+git clone [https://github.com/USERNAME_ANDA/NAMA_REPO.git](https://github.com/USERNAME_ANDA/NAMA_REPO.git)
+cd NAMA_REPO
